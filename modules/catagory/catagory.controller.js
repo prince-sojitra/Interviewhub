@@ -1,4 +1,6 @@
 var CATAGORY = require('./catagory.model')
+var SUBCATEGORY = require('../subCatagory/subcatagory.model')
+var QUESTIONS = require('../questions/questions.model')
 
 exports.catagoryCreate = async function (req, res, next) {
   try {
@@ -40,25 +42,29 @@ exports.catagoryFind = async function (req, res, next) {
     })
   }
 }
-
-exports.catagoryDelete = async function (req, res, next) {
+exports.catagoryDelete = async (req, res, next) => {
   try {
-    let findcatagory = await CATAGORY.findById(req.params.id)
-    if (!findcatagory) {
-      throw new Error("Catagory is Already Delete")
-    }
-    await CATAGORY.findByIdAndDelete(req.params.id)
+    const categoryId = req.params.id;
+
+    const questions = await QUESTIONS.find();
+    questions.map(async (el) => await QUESTIONS.deleteMany({ subcatagoryID : el.subcatagoryID }))
+    await SUBCATEGORY.deleteMany({ catagoryID : categoryId });
+    
+
+    await CATAGORY.findByIdAndDelete(categoryId);
+
     res.status(200).json({
       status: "success",
-      message: "catagory Delete success",
-    })
+      message: "Category and its Sub Categories and Question deleted successfully"
+    });
   } catch (error) {
-    res.status(404).json({
+    res.status(400).json({
       status: "fail",
       message: error.message
-    })
+    });
   }
-}
+};
+
 
 exports.catagoryUpdate = async function (req, res, next) {
   try {

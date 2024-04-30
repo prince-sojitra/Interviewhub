@@ -13,6 +13,5 @@ const catagoryData = new Schema({
         default : "on"
     }
 });
-
 let CATAGORY = mongoose.model('catagory',catagoryData)
 module.exports = CATAGORY

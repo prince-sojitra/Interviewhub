@@ -1,4 +1,9 @@
 var QUESTIONS = require('./questions.model')
+const csv = require('csv-parser');
+const fs = require('fs');
+
+
+
 
 exports.questionsCreate = async function (req, res, next) {
   try {
@@ -19,20 +24,20 @@ exports.questionsCreate = async function (req, res, next) {
 
 exports.questionsFind = async function (req, res, next) {
   try {
-    
-      let catagoryData = await QUESTIONS.find().populate({ 
-        path: 'subcatagoryID',
-        populate: {
-          path: 'catagoryID',
-          model: 'catagory'
-        } 
-     })
-      res.status(200).json({
-        status: "success",
-        message: "questions Found success",
-        data: catagoryData
-      })
-    
+
+    let catagoryData = await QUESTIONS.find().populate({
+      path: 'subcatagoryID',
+      populate: {
+        path: 'catagoryID',
+        model: 'catagory'
+      }
+    })
+    res.status(200).json({
+      status: "success",
+      message: "questions Found success",
+      data: catagoryData
+    })
+
   } catch (error) {
     res.status(404).json({
       status: "fail",
