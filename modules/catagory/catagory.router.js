@@ -5,6 +5,7 @@ var ADMINSEQURE = require("../admin/admin.middleware")
 
 router.post('/create',ADMINSEQURE.Sequre,CATAGORYCONTROLLER.catagoryCreate);
 router.get('/',ADMINSEQURE.Sequre,CATAGORYCONTROLLER.catagoryFind);
+router.get('/count',ADMINSEQURE.Sequre,CATAGORYCONTROLLER.catagoryCount);
 router.delete('/:id',ADMINSEQURE.Sequre,CATAGORYCONTROLLER.catagoryDelete);
 router.patch('/:id',ADMINSEQURE.Sequre,CATAGORYCONTROLLER.catagoryUpdate);
 

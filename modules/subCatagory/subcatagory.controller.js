@@ -41,6 +41,24 @@ exports.subcatagoryFind = async function (req, res, next) {
   }
 }
 
+exports.subcatagoryCount = async function (req, res, next) {
+  try {
+    
+      let catagoryData = await SUBCATAGORY.find().count()
+      res.status(200).json({
+        status: "success",
+        message: "sub-catagory Count success",
+        data: catagoryData
+      })
+    
+  } catch (error) {
+    res.status(404).json({
+      status: "fail",
+      message: error.message
+    })
+  }
+}
+
 exports.subcatagoryDelete = async function (req, res, next) {
   try {
     let subcatagoryID = req.params.id

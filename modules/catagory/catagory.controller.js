@@ -29,6 +29,7 @@ exports.catagoryFind = async function (req, res, next) {
       }) 
     } else {
       let catagoryData = await CATAGORY.find()
+      
       res.status(200).json({
         status: "success",
         message: "catagory Found success",
@@ -42,6 +43,26 @@ exports.catagoryFind = async function (req, res, next) {
     })
   }
 }
+
+exports.catagoryCount = async function (req, res, next) {
+  try {
+    
+      let catagoryData = await CATAGORY.find().count()
+      
+      res.status(200).json({
+        status: "success",
+        message: "catagory Count success",
+        data: catagoryData
+      })
+    
+  } catch (error) {
+    res.status(404).json({
+      status: "fail",
+      message: error.message
+    })
+  }
+}
+
 exports.catagoryDelete = async (req, res, next) => {
   try {
     const categoryId = req.params.id;

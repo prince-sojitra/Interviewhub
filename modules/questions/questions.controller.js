@@ -4,7 +4,6 @@ const fs = require('fs');
 
 
 
-
 exports.questionsCreate = async function (req, res, next) {
   try {
     console.log(req.body);
@@ -35,6 +34,24 @@ exports.questionsFind = async function (req, res, next) {
     res.status(200).json({
       status: "success",
       message: "questions Found success",
+      data: catagoryData
+    })
+
+  } catch (error) {
+    res.status(404).json({
+      status: "fail",
+      message: error.message
+    })
+  }
+}
+
+exports.questionsCount = async function (req, res, next) {
+  try {
+
+    let catagoryData = await QUESTIONS.find().count()
+    res.status(200).json({
+      status: "success",
+      message: "questions Count success",
       data: catagoryData
     })
 
