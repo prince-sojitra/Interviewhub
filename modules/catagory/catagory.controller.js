@@ -4,6 +4,8 @@ var QUESTIONS = require('../questions/questions.model')
 
 exports.catagoryCreate = async function (req, res, next) {
   try {
+    
+    req.body.categoryImage = req.files.map(el => el.filename)  
     let catagoryData = await CATAGORY.create(req.body)
     res.status(201).json({
       status: "success",
@@ -63,32 +65,46 @@ exports.catagoryCount = async function (req, res, next) {
   }
 }
 
-exports.catagoryDelete = async (req, res, next) => {
+
+exports.catagoryDelete = async function (req, res, next) {
   try {
-    const categoryId = req.params.id;
+    let findcatagory = await CATAGORY.findById(req.params.id)
 
-    const questions = await QUESTIONS.find();
-    questions.map(async (el) => await QUESTIONS.deleteMany({ subcatagoryID : el.subcatagoryID }))
-    await SUBCATEGORY.deleteMany({ catagoryID : categoryId });
+    if (!findcatagory) {
+      throw new Error("Catagory is Already Delete")
+    }
+
     
-
-    await CATAGORY.findByIdAndDelete(categoryId);
-
+    // QUESTIONS DELETE
+    
+    let SUB_CATEGORIES_DATA = await SUBCATEGORY.find({ catagoryID: req.params.id })
+    
+    let SUB_CATEGORIES_ID = await SUB_CATEGORIES_DATA.map(SUB_CATE => SUB_CATE._id)
+    
+    await QUESTIONS.deleteMany({ subcatagoryID: { $in: SUB_CATEGORIES_ID } })
+    
+    // SUBCATEGORY DELETE
+    
+    // CATEGORY DELETE
+    await SUBCATEGORY.deleteMany({ catagoryID: req.params.id })
+    
+    await CATAGORY.findByIdAndDelete(req.params.id)
     res.status(200).json({
       status: "success",
-      message: "Category and its Sub Categories and Question deleted successfully"
-    });
+      message: "catagory Delete success",
+    })
   } catch (error) {
-    res.status(400).json({
+    res.status(404).json({
       status: "fail",
       message: error.message
-    });
+    })
   }
-};
+}
 
 
 exports.catagoryUpdate = async function (req, res, next) {
   try {
+    req.body.categoryImage = req.files.map(el => el.filename)
     let CatagoryData = await CATAGORY.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json({
       status: "success",

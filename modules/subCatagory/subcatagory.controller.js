@@ -2,6 +2,7 @@ var SUBCATAGORY = require('./subcatagory.model')
 var QUESTIONS = require('../questions/questions.model')
 exports.subcatagoryCreate = async function (req, res, next) {
   try {
+    req.body.subCategoryImage = req.files.map(el => el.filename)
     let catagoryData = await SUBCATAGORY.create(req.body)
     res.status(201).json({
       status: "success",
@@ -61,14 +62,17 @@ exports.subcatagoryCount = async function (req, res, next) {
 
 exports.subcatagoryDelete = async function (req, res, next) {
   try {
-    let subcatagoryID = req.params.id
-    // let questions = await QUESTIONS.find({subcatagoryID})
-    // console.log(questions);
-    await QUESTIONS.deleteMany({subcatagoryID})
-    await SUBCATAGORY.findByIdAndDelete(subcatagoryID)
+    let findcatagory = await SUBCATAGORY.findById(req.params.id)
+    if (!findcatagory) {
+      throw new Error("sub-catagory is Already Delete")
+    }
+    await SUBCATAGORY.findByIdAndDelete(req.params.id)
+
+    await QUESTIONS.deleteMany({ subcatagoryID: req.params.id })
+
     res.status(200).json({
       status: "success",
-      message: "sub-catagory and Questions Delete success",
+      message: "sub-catagory Delete success",
     })
   } catch (error) {
     res.status(404).json({
@@ -80,6 +84,7 @@ exports.subcatagoryDelete = async function (req, res, next) {
 
 exports.subcatagoryUpdate = async function (req, res, next) {
   try {
+    req.body.subCategoryImage = req.files.map(el => el.filename)
     let CatagoryData = await SUBCATAGORY.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json({
       status: "success",
