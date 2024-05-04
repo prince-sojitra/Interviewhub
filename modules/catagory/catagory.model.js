@@ -30,7 +30,7 @@ const catagoryData = new Schema({
     },
     slug : {
         type : String,
-        require : true
+        required : true
     }
 });
 let CATAGORY = mongoose.model('catagory', catagoryData)

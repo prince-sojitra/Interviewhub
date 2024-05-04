@@ -34,7 +34,7 @@ const subcatagoryData = new Schema({
     },
     slug : {
         type : String,
-        require : true
+        required : true
     }
 });
 
