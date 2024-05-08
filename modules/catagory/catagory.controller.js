@@ -5,7 +5,7 @@ var QUESTIONS = require('../questions/questions.model')
 exports.catagoryCreate = async function (req, res, next) {
   try {
     
-    req.body.categoryImage = req.files.map(el => el.filename)  
+    // req.body.categoryImage = req.files.map(el => el.filename)  
     let catagoryData = await CATAGORY.create(req.body)
     res.status(201).json({
       status: "success",
@@ -104,7 +104,7 @@ exports.catagoryDelete = async function (req, res, next) {
 
 exports.catagoryUpdate = async function (req, res, next) {
   try {
-    req.body.categoryImage = req.files.map(el => el.filename)
+    // req.body.categoryImage = req.files.map(el => el.filename)
     let CatagoryData = await CATAGORY.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json({
       status: "success",

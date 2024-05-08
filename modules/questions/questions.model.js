@@ -15,18 +15,18 @@ const questionsData = new Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : "subCatagory"
     },
-    Description: {
-        type: String,
-        required: true
-    },
-    metaTitle: {
-        type: String,
-        required: true
-    },
-    slug : {
-        type : String,
-        required : true
-    }
+    // Description: {
+    //     type: String,
+    //     required: true
+    // },
+    // metaTitle: {
+    //     type: String,
+    //     required: true
+    // },
+    // slug : {
+    //     type : String,
+    //     required : true
+    // }
 });
 
 let QUESTIONS = mongoose.model('questions',questionsData)

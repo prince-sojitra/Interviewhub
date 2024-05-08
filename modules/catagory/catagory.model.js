@@ -12,26 +12,26 @@ const catagoryData = new Schema({
         enum: ["on", "off"],
         default: "on"
     },
-    categoryImage: [{
-        type: String,
-        required: true
-    }],
-    alternamtiveImage: {
-        type: String,
-        required: true
-    },
-    Description: {
-        type: String,
-        required: true
-    },
-    metaTitle: {
-        type: String,
-        required: true
-    },
-    slug : {
-        type : String,
-        required : true
-    }
+    // categoryImage: [{
+    //     type: String,
+    //     required: true
+    // }],
+    // alternamtiveImage: {
+    //     type: String,
+    //     required: true
+    // },
+    // Description: {
+    //     type: String,
+    //     required: true
+    // },
+    // metaTitle: {
+    //     type: String,
+    //     required: true
+    // },
+    // slug : {
+    //     type : String,
+    //     required : true
+    // }
 });
 let CATAGORY = mongoose.model('catagory', catagoryData)
 module.exports = CATAGORY

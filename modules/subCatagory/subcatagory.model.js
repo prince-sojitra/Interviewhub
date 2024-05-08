@@ -16,26 +16,26 @@ const subcatagoryData = new Schema({
         enum : ["on","off"],
         default : "on"
     },
-    subCategoryImage: [{
-        type: String,
-        required: true
-    }],
-    alternamtiveImage: {
-        type: String,
-        required: true
-    },
-    Description: {
-        type: String,
-        required: true
-    },
-    metaTitle: {
-        type: String,
-        required: true
-    },
-    slug : {
-        type : String,
-        required : true
-    }
+    // subCategoryImage: [{
+    //     type: String,
+    //     required: true
+    // }],
+    // alternamtiveImage: {
+    //     type: String,
+    //     required: true
+    // },
+    // Description: {
+    //     type: String,
+    //     required: true
+    // },
+    // metaTitle: {
+    //     type: String,
+    //     required: true
+    // },
+    // slug : {
+    //     type : String,
+    //     required : true
+    // }
 });
 
 let SUBCATAGORY = mongoose.model('subCatagory',subcatagoryData)

@@ -14,7 +14,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.post('/create', upload.array('categoryImage', 10), ADMINSEQURE.Sequre, CATAGORYCONTROLLER.catagoryCreate);
+// router.post('/create', upload.array('categoryImage', 10), ADMINSEQURE.Sequre, CATAGORYCONTROLLER.catagoryCreate);
+router.post('/create', ADMINSEQURE.Sequre, CATAGORYCONTROLLER.catagoryCreate);
 router.get('/', ADMINSEQURE.Sequre, CATAGORYCONTROLLER.catagoryFind);
 router.get('/count', ADMINSEQURE.Sequre, CATAGORYCONTROLLER.catagoryCount);
 router.delete('/:id', ADMINSEQURE.Sequre, CATAGORYCONTROLLER.catagoryDelete);

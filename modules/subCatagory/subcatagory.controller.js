@@ -2,7 +2,7 @@ var SUBCATAGORY = require('./subcatagory.model')
 var QUESTIONS = require('../questions/questions.model')
 exports.subcatagoryCreate = async function (req, res, next) {
   try {
-    req.body.subCategoryImage = req.files.map(el => el.filename)
+    // req.body.subCategoryImage = req.files.map(el => el.filename)
     let catagoryData = await SUBCATAGORY.create(req.body)
     res.status(201).json({
       status: "success",
@@ -84,7 +84,7 @@ exports.subcatagoryDelete = async function (req, res, next) {
 
 exports.subcatagoryUpdate = async function (req, res, next) {
   try {
-    req.body.subCategoryImage = req.files.map(el => el.filename)
+    // req.body.subCategoryImage = req.files.map(el => el.filename)
     let CatagoryData = await SUBCATAGORY.findByIdAndUpdate(req.params.id, req.body, { new: true })
     res.status(200).json({
       status: "success",
